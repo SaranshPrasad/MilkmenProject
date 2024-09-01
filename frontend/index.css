@@ -1,0 +1,16 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Cedarville+Cursive&family=Poppins&display=swap'); */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Add this to your CSS file */
+.scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
