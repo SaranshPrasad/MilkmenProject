@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); 
 const pool = require('./db');
 const cors = require('cors');
-// const authenticateToken = require('./middleware/auth');
+
 const app = express();
 const PORT = 5000;
 
@@ -121,6 +121,15 @@ app.get('/vendors', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+app.get('/users', async (req, res) => {
+    try{
+        const users = await pool.query('SELECT * FROM users');
+        res.status(200).json(users.rows);
+    }catch(err){
+        console.error('Database query error:', err);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+})
 app.post('/vendorlogin', async (req, res) => {
     const { email, password } = req.body;
 

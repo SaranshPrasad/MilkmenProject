@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlics";
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const user_id = useSelector((store) => store?.user?.user_id);
@@ -21,6 +22,7 @@ const Login = () => {
             localStorage.setItem('token', response.data.token);
             console.log('Login successful:', response.data);
             const { username, user_id } = response?.data?.user;
+            Cookies.set('user_id', user_id);
             dispatch(addUser({
                 username: username,
                 user_id: user_id,

@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlics";
+import Cookies from "js-cookie";
 
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user_id = useSelector((store) => store?.user?.user_id);
+    // const user_id = useSelector((store) => store?.user?.user_id);
     const token = localStorage.getItem('token');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const user_id = Cookies.get('user_id');
+    console.log(user_id)
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
@@ -97,7 +100,7 @@ const Header = () => {
                                 {!token && <Link to="/login" className="text-white hover:bg-gray-700 block px-4 py-2 rounded-md text-lg font-medium" onClick={toggleMenu}>Login</Link>}
                                 {token && <button onClick={() => { handleSignOut(); toggleMenu(); }} className="text-white hover:bg-gray-700 block px-4 py-2 rounded-md text-lg font-medium">Sign Out</button>}
                                 {!token && <Link to="/vendorsignup" className="text-white hover:bg-gray-700 block px-4 py-2 rounded-md text-lg font-medium" onClick={toggleMenu}>Vendor Sign Up</Link>}
-                                {user_id === 1 && <Link to="/admin" className="text-white hover:bg-gray-700 block px-4 py-2 rounded-md text-lg font-medium" onClick={toggleMenu}>Admin Dashboard</Link>}
+                                {user_id == 1 ? <Link to="/admin" className="text-white hover:bg-gray-700 block px-4 py-2 rounded-md text-lg font-medium" onClick={toggleMenu}>Admin Dashboard</Link> : ""}
                                 <Link to="/contact" className="text-white bg-blue-600 hover:bg-blue-700 block px-4 py-2 rounded-md text-lg font-medium" onClick={toggleMenu}>Contact</Link>
                             </nav>
                         </div>
@@ -111,7 +114,7 @@ const Header = () => {
                         {!token && <Link to="/login" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</Link>}
                         {token && <button onClick={handleSignOut} className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Sign Out</button>}
                         {!token && <Link to="/vendorsignup" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Vendor Sign Up</Link>}
-                        {user_id === 1 && <Link to="/admin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</Link>}
+                        {user_id == 1 && <Link to="/admin" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</Link>}
                         <Link to="/contact" className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Contact</Link>
                     </div>
                 </div>
